@@ -36,7 +36,7 @@ kubectl apply -f falcosidekick.yaml
 kubectl -n falco get deploy,svc,pods -l app=falcosidekick
 kubectl -n falco logs deploy/falcosidekick | tail -n 50
 ```
-5. PUedes generar eventos de prueba para generar alertas
+5. Puedes generar eventos de prueba para generar alertas
 ```
 # Shell interactivo
 kubectl run demo --image=alpine -it -- sh
@@ -56,3 +56,13 @@ kubectl -n falco logs ds/falco | sed -n '1,120p'
 kubectl -n falco logs deploy/falcosidekick | tail -n 100
 kubectl -n falco get svc falcosidekick -o yaml | grep -E 'clusterIP|port'
 ```
+7. También puede agregar nuevas reglas personalizadas. En este caso tenemos ya un archivo en el repo con un ejemplo. Lo podemos aplicar con el comando
+```
+helm upgrade --namespace falco falco falcosecurity/falco --set tty=true -f falco_custom_rules_cm.yaml
+```
+8. También, se puede habilitar una UI web para ver las alertas y el funcionamiento de Falco
+```
+helm upgrade --namespace falco falco falcosecurity/falco -f falco_custom_rules_cm.yaml --set falcosidekick.enabled=true --set falcosidekick.webui.enabled=true
+kubectl -n falco port-forward svc/falco-falcosidekick-ui 2802
+```
+
