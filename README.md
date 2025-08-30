@@ -66,3 +66,7 @@ helm upgrade --namespace falco falco falcosecurity/falco -f falco_custom_rules_c
 kubectl -n falco port-forward svc/falco-falcosidekick-ui 2802
 ```
 
+## Recursos Adicionales
+- [Listado de reglas default](https://falco.org/docs/reference/rules/default-rules/)
+- [Plugins oficiales](https://github.com/falcosecurity/plugins)
+- [Eventos soportados](https://falco.org/docs/reference/rules/supported-events/)
